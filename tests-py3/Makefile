@@ -28,10 +28,10 @@ test-unit:
 	$(PYTEST) -T unit unit
 
 test-mypy3:
-	$(MYPY) $$(../scripts/find-python-files 3)
+	$(MYPY) --junit-xml results-mypy3.xml $$(../scripts/find-python-files 3)
 
 test-mypy3-raw:
-	$(MYPY) --config-file=$(realpath ../mypy-raw.ini) $$(../scripts/find-python-files 3)
+	$(MYPY)  --junit-xml results-mypy3-raw.xml--config-file=$(realpath ../mypy-raw.ini) $$(../scripts/find-python-files 3)
 
 MYPY2_FILES=$(shell \
     ../scripts/find-python-files 2 | \
@@ -61,10 +61,10 @@ MYPY2_FILES=$(shell \
     grep -v $$(realpath '../tests'))
 
 test-mypy:
-	$(MYPY) $(MYPY2_FILES)
+	$(MYPY) --junit-xml results-mypy.xml $(MYPY2_FILES)
 
 test-mypy-raw:
-	$(MYPY) --config-file=$(realpath ../mypy-raw.ini)  $(MYPY2_FILES)
+	$(MYPY) --junit-xml results-mypy-raw.xml --config-file=$(realpath ../mypy-raw.ini)  $(MYPY2_FILES)
 
 test-packaging:
 	$(PYTEST) -T packaging packaging
